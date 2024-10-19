@@ -8,15 +8,15 @@ public class Sistema {
     List pedidos=new ArrayList();
     Set clientes=new HashSet();
     
-    public Sistema(){
+    public Sistema(){ //Constructor
         mozos=new ArrayList();
         platos=new ArrayList();
         pedidos=new ArrayList();
         clientes= new HashSet();
     }
-    public void menu(){
+    public void menu(){  //Menu de opciones que se le da al usuario hasta que decida dejar de utilizar el sistema
         cargarPlatos();
-        cargarMozos();
+        cargarMozos();  //Llamamos a las funciones que "hard-codean" los platos del menú y los nombres de los mozos en las listas
         Scanner sc=new Scanner(System.in);
         int op;
         System.out.println("BIENVENIDO A NUESTRO SISTEMA DE RESTAURANTE:\n");
@@ -31,11 +31,11 @@ public class Sistema {
             op=Integer.parseInt(sc.nextLine());
             switch(op){
                 case 1:
-                    listarPlatos();
-                    cargarPedido();
+                    listarPlatos(); //Funcion que imprime la lista de los platos disponibles en el menu
+                    cargarPedido(); //Funcion que se encarga de solicitar los datos del cliente y del pedido, y asignar el mozo correspondiente a la mesa
                     break;
                 case 2:
-                    listarPedidos();
+                    listarPedidos(); //Funcion que imprime la lista de los pedidos que han sido realizados al restaurante
                     break;
                 case 3:
                     listarPlatos();
@@ -43,11 +43,11 @@ public class Sistema {
                     sc.nextLine();
                     break;
                 case 4:
-                    mostrarMozos();
+                    mostrarMozos(); //Funcion que imprime los mozos dispoibles y de que mesas son responsables
                     break;
                 case 5:
                     System.out.println("Adios!");
-                    break;
+                    break; //Fin del programa
             }
         }while(op!=5);
     }
@@ -60,7 +60,7 @@ public class Sistema {
         String DNI;
         String mozoAsignado="";
         int numeroMesa;
-        
+        //Carga de los datos del cliente y del pedido
         System.out.println("\nSeleccione su numero de plato deseado:");
         plato=Integer.parseInt(sc.nextLine());
         System.out.println("\nIngrese el numero de mesa deseado:");
@@ -71,6 +71,7 @@ public class Sistema {
         apellido=sc.nextLine();
         System.out.println("\nIngrese el DNI del cliente:");
         DNI=sc.nextLine();
+        //Asignacion de mozo de acuerdo a la mesa seleccionada por el cliente
         if (numeroMesa>=1 && numeroMesa<=5){
             mozoAsignado="Juan Carlos Romero";
         }else if(numeroMesa>=6 && numeroMesa<=10){
@@ -82,8 +83,8 @@ public class Sistema {
         }else{
             System.out.println("Numero invalido");
         }
-        clientes.add(new Cliente(nombre,apellido,DNI));
-        pedidos.add(platos.get(plato-1)+"\nMesa nro:"+numeroMesa+"\nMozo que atiende: "+mozoAsignado
+        clientes.add(new Cliente(nombre,apellido,DNI)); //Se agrega el cliente al HashSet para tener un registro de los clientes
+        pedidos.add(platos.get(plato-1)+"\nMesa nro:"+numeroMesa+"\nMozo que atiende: "+mozoAsignado //Se agrega el pedido a la lista
         +"\nCliente:\nNombre:"+nombre+"\nApellido:"+apellido);
         System.out.println("El pedido se cargó con exito. Presione enter para continuar.");
         sc.nextLine();
@@ -92,7 +93,7 @@ public class Sistema {
     public void listarPedidos(){
         Scanner sc=new Scanner(System.in);
         System.out.println("\n\nSus pedidos hasta el momento son:");
-        for(Object elemento:pedidos){
+        for(Object elemento:pedidos){ //ForEach que recorre la lista de pedidos
             System.out.println(elemento+"\n");
         }
         System.out.println("\nPresione Enter para continuar.");
@@ -102,7 +103,7 @@ public class Sistema {
     public void mostrarMozos(){
         Scanner sc=new Scanner(System.in);
         System.out.println("\nLos mozos disponibles son: ");
-        for(Object elemento:mozos){
+        for(Object elemento:mozos){ //ForEach que recorre la lista de mozos
             System.out.println(elemento);
         }
         System.out.println("\nPresione Enter para continuar.");
@@ -113,20 +114,20 @@ public class Sistema {
         Scanner sc=new Scanner(System.in);
         System.out.println("\nLos platos disponibles son: ");
         int i=1;
-        for(Object elemento:platos){
+        for(Object elemento:platos){ //ForEach que recorre la lista de platos del menu
             System.out.println(i+"-"+elemento);
             i++;
         }
     }
     
-    public void cargarMozos(){
+    public void cargarMozos(){ //Hard-codeo de los mozos y las mesas que atienden
         mozos.add("Mesas 1 a 5: Juan Carlos Romero");
         mozos.add("Mesas 6 a 10: Roberto Gutierrez");
         mozos.add("Mesas 11 a 15: Analia Gonzalez");
         mozos.add("Mesas 16 a 20: Walter Diaz");
     }
     
-    public void cargarPlatos(){
+    public void cargarPlatos(){ //Hard-codeo de los platos disponibles en el menu y sus precios para la visualizacion del cliente
         platos.add("Bife a la Criolla - Precio:$7100");
         platos.add("Milanesa a la Napolitana - Precio:$6200");
         platos.add("Pizza Especial de Jamón y Queso - Precio:$7800");
